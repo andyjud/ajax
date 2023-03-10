@@ -86,7 +86,7 @@
     </a>
 </header>
 
-<content class="block max-w-xl mx-auto mt-12">
+<content class="block max-w-xl mx-auto mt-12 px-6">
 
     {% block content %}
 

@@ -27,7 +27,7 @@
 
     <script>
 
-document.getElementById('addlikes').addEventListener('click', addlikes )
+        document.getElementById('addlikes').addEventListener('click', addlikes )
         async function addlikes() {
             const likes = document.getElementById("likes")
             const url = document.getElementById('addlikes').dataset.url;

@@ -5,13 +5,13 @@
     <h1>Fetch</h1>
     <div class="card">
         <h2 class="mb-4">Likes: <span id="likes">0</span></h2>
-        <button id="addlike" data-url="{% url 'json-data' %}">Click Me</button>
+        <button id="addlikes" data-url="">Click Me</button>
     </div>
     
     <div class="card">
         <div class="mb-4">
             <h2 class="mb-4">Input a city:</h2>
-            <form id="city_input" method="post" data-url="{% url 'json-data' %}">
+            <form id="city_input" method="post" data-url="">
                 {% csrf_token %}
                 <input type="text" name="city" autocomplete="off">
                 <button type="submit">Submit</button>
@@ -27,9 +27,9 @@
 
     <script>
 
-        document.getElementById('addlike').addEventListener('click', addlike)
-        function addlike() {  
-            const url = document.getElementById('addlike').dataset.url;    
+        document.getElementById('addlikes').addEventListener('click', addlikes)
+        function addlikes() {  
+            const url = document.getElementById('addlikes').dataset.url;    
             fetch(url)
             .then(response => response.json())
             .then(response => {

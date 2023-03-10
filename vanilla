@@ -6,13 +6,13 @@
     <h1>Vanilla</h1>
     <div class="card">
         <h2 class="mb-4">Likes: <span id="likes">0</span></h2>
-        <button id="addlike" data-url="{% url 'json-data' %}">Click Me</button>
+        <button id="addlike" data-url="">Click Me</button>
     </div>
     
     <div class="card">
         <div class="mb-4">
             <h2 class="mb-4">Input a city:</h2>
-            <form id="city_input" method="post" data-url="{% url 'json-data' %}">
+            <form id="city_input" method="post" data-url="">
                 {% csrf_token %}
                 <input type="text" name="city" autocomplete="off">
                 <button type="submit">Submit</button>

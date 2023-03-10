@@ -93,10 +93,11 @@
     <h1>Ajax methods</h1>
     <div class="card p-8 !pb-10">
         <ul class="hoverlist [&>li>*]:font-bold [&>li>*]:text-2xl">
-            <li><a href="{% url 'vanilla' %}">Vanilla</a></li>
-            <li><a href="">Fetch API</a></li>
-            <li><a href="">jQuery</a></li>
+            <li><a href="">Vanilla</a></li>
+            <li><a href="">Fetch</a></li>
+            <li><a href="">Fetch Await</a></li>
             <li><a href="">Axios</a></li>
+            <li><a href="">jQuery</a></li>
             <li><a href="">Htmx</a></li>
         </ul>
     </div>

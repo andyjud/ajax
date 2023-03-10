@@ -1,23 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 
 {% block content %}
 
-    <h1>Vanilla Ajax</h1>
-
-    <div>Likes: <span id="likes">{{ likes }}</span></div>
-    <button id="addlike">Click Me</button>
-
-    <div style="margin: 40px 0 20px;">
-        <form id="city_input" method="post">
-            {% csrf_token %}
-            <div>What cities have you visited?</div>
-            <div><input type="text" name="city"></div>
-            <button type="submit">Submit</button>
-        </form>
+    <h1>Vanilla</h1>
+    <div class="card">
+        <h2 class="mb-4">Likes: <span id="like">0</span></h2>
+        <button id="addlike" data-url="{% url 'json-data' %}">Click Me</button>
     </div>
-    <div id="cities_list"></div>
 
-    <div style="margin: 40px"><a href="/">Home</a></div>
+    <div class="card">
+        <div class="mb-4">
+            <h2 class="mb-4">Input some text:</h2>
+            <form id="city_input" method="post">
+                {% csrf_token %}
+                <input type="text" name="city" autocomplete="off">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div id="cities_list"></div>
+    </div>
+
 
 {% endblock %}
 
@@ -27,13 +29,15 @@
     <script>
 
         document.getElementById('addlike').addEventListener('click', addlike)
+
         function addlike() {
+            const url = document.getElementById('addlike').dataset.url;
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', '{% url "json_data" %}', true)
+            xhr.open('GET', url, true)
             xhr.send()
             xhr.onload = () => {
                 const response = JSON.parse(xhr.response);
-                document.getElementById('likes').textContent = response.like;
+                document.getElementById('like').textContent = response.like;
             }   
         }
 
@@ -41,9 +45,10 @@
         function city_input(e) {  
             e.preventDefault();      
             const form = e.target;
-            const data = new FormData(form); // create form data object to bundle data and send to server
+            const data = new FormData(form); 
+            const url = document.getElementById('addlike').dataset.url;
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', '{% url "json_data" %}', true);
+            xhr.open('POST', url, true);
             xhr.send(data);
             xhr.onload = () => {
                 const response = JSON.parse(xhr.response);

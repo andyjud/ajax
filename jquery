@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <h1>jQuery</h1>
+    <div class="card">
+        <h2 class="mb-4">Likes: <span id="likes">0</span></h2>
+        <button id="addlike" data-url="{% url 'json-data' %}">Click Me</button>
+    </div>
+    
+    <div class="card">
+        <div class="mb-4">
+            <h2 class="mb-4">Input a city:</h2>
+            <form id="city_input" method="post" data-url="{% url 'json-data' %}">
+                {% csrf_token %}
+                <input type="text" name="city" autocomplete="off">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div id="cities_list"></div>
+    </div>
+
+{% endblock %}
+
+{% block library %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+{% endblock %}
+
+
+{% block javascript %}
+
+<script>
+
+    $("#addlike").click(() => {
+        $.ajax({
+            url: $('#addlike').data('url'),
+            success: (response) => {
+                $("#likes").text(response["likes"]);
+            }
+        })
+    })
+
+    $("#city_input").submit((e) => {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $('#city_input').data('url'),
+            data: $("#city_input").serialize(),
+            success: (response) => {
+                $("#cities_list").append('<div>' + response['city'] + '</div>');
+                $("#city_input")[0].reset();
+            }
+        }) 
+    })
+
+</script>
+
+{% endblock %}

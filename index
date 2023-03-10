@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajax</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    {% block library %}{% endblock %}
     <style type="text/tailwindcss">
-        :root {
-            --primary: rgb(88, 40, 244);
-            --primary-hover: rgb(69, 29, 200);
-        }
         h1 {
             font-size: 4rem;
             line-height: 1.2;
@@ -38,10 +35,11 @@
             transition-property: transform;
             transition-duration: .2s;
             color: white;
-            background-color: var(--primary);
+            background-color: rgb(88, 40, 244);
+            width: fit-content;
         }
         .button:hover, button:hover, [type='submit']:hover, [type='button']:hover {
-            background-color: var(--primary-hover);
+            background-color: rgb(69, 29, 200);
         }
         .button:active, button:active, [type='submit']:active, [type='button']:active {
             transform: scale(0.95);
@@ -54,9 +52,6 @@
         .secondaryAction:hover, .button.secondaryAction:hover {
             background-color: rgba(0, 0, 0, 0.05);
         }
-        .navitems>li>a {
-            @apply flex items-center gap-2 h-12 px-4 hover:bg-gray-700 rounded-lg;
-        }
         .card {
             display: flex;
             flex-direction: column;
@@ -66,7 +61,7 @@
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
             background-color: white;
-            padding-bottom: 1rem;
+            padding: 2rem;
         }
         .hoverlist>* {
             @apply hover:bg-gray-100 rounded-lg transition duration-150 ;
@@ -74,36 +69,11 @@
         .hoverlist>*>a {
             @apply flex items-center p-4 block;
         }
-        form {
-            margin-top: 1.5rem;
-        }
-        form p {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        label, input {
-          display: inline-block;
-        }
-        form p label {
-            width: 7rem;
-            }
-        label {
-            margin: 6px 0 3px;
-        }
         input, textarea {
-            width: 100%;
+            @apply mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
         }
-        input[type="file"], select {
-            background-color: white;
-            padding-left: 0;
-        }
-        label[for="id_remember"] {
-            width: auto;
-            margin-right: 0.5rem;
-        }
-        input[name="remember"] {
-            width: auto;
+        #cities_list div {
+            @apply font-bold text-lg
         }
     </style>
 </head>
@@ -112,25 +82,32 @@
 
 <header class="flex items-center px-8 bg-gray-800 h-20 text-white sticky top-0 z-40">
     <a href="/">
-        <span class="text-lg font-bold">Ajax</span>
+        <span class="text-xl font-bold">Ajax</span>
     </a>
 </header>
 
-<content class="block max-w-4xl mx-auto mt-12">
+<content class="block max-w-xl mx-auto mt-12">
 
-    <main class="mx-[5%]">
-        <h1>Ajax methods</h1>
-        <div class="card p-8 !pb-10">
-            <ul class="hoverlist [&>li>*]:font-bold [&>li>*]:text-2xl">
-                <li><a href="">Vanilla</a></li>
-                <li><a href="">Fetch API</a></li>
-                <li><a href="">jQuery</a></li>
-                <li><a href="">Htmx</a></li>
-            </ul>
-        </div>
-    </main>
-    
+    {% block content %}
+
+    <h1>Ajax methods</h1>
+    <div class="card p-8 !pb-10">
+        <ul class="hoverlist [&>li>*]:font-bold [&>li>*]:text-2xl">
+            <li><a href="{% url 'vanilla' %}">Vanilla</a></li>
+            <li><a href="">Fetch API</a></li>
+            <li><a href="">jQuery</a></li>
+            <li><a href="">Axios</a></li>
+            <li><a href="">Htmx</a></li>
+        </ul>
+    </div>
+
+    {% endblock %}
+
+    {% block javascript %}{% endblock %}
+
+
 </content>
     
 </body>
 </html>
+    

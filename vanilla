@@ -1,17 +1,18 @@
 {% extends 'index.html' %}
 
+
 {% block content %}
 
     <h1>Vanilla</h1>
     <div class="card">
-        <h2 class="mb-4">Likes: <span id="like">0</span></h2>
+        <h2 class="mb-4">Likes: <span id="likes">0</span></h2>
         <button id="addlike" data-url="{% url 'json-data' %}">Click Me</button>
     </div>
-
+    
     <div class="card">
         <div class="mb-4">
-            <h2 class="mb-4">Input some text:</h2>
-            <form id="city_input" method="post">
+            <h2 class="mb-4">Input a city:</h2>
+            <form id="city_input" method="post" data-url="{% url 'json-data' %}">
                 {% csrf_token %}
                 <input type="text" name="city" autocomplete="off">
                 <button type="submit">Submit</button>
@@ -19,7 +20,6 @@
         </div>
         <div id="cities_list"></div>
     </div>
-
 
 {% endblock %}
 
@@ -37,7 +37,7 @@
             xhr.send()
             xhr.onload = () => {
                 const response = JSON.parse(xhr.response);
-                document.getElementById('like').textContent = response.like;
+                document.getElementById('likes').textContent = response.likes;
             }   
         }
 
@@ -46,7 +46,7 @@
             e.preventDefault();      
             const form = e.target;
             const data = new FormData(form); 
-            const url = document.getElementById('addlike').dataset.url;
+            const url = document.getElementById('city_input').dataset.url;
             const xhr = new XMLHttpRequest();
             xhr.open('POST', url, true);
             xhr.send(data);

@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <h1>Axios</h1>
+    <div class="card">
+        <h2 class="mb-4">Likes: <span id="likes">0</span></h2>
+        <button id="addlike" data-url="{% url 'json-data' %}">Click Me</button>
+    </div>
+    
+    <div class="card">
+        <div class="mb-4">
+            <h2 class="mb-4">Input a city:</h2>
+            <form id="city_input" method="post" data-url="{% url 'json-data' %}">
+                {% csrf_token %}
+                <input type="text" name="city" autocomplete="off">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div id="cities_list"></div>
+    </div>
+
+{% endblock %}
+
+
+{% block library %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"></script>
+{% endblock %}
+
+
+{% block javascript %}
+
+    <script>
+
+        document.getElementById('addlike') .addEventListener('click', addlike)
+        async function addlike() {   
+            const url = document.getElementById('addlike').dataset.url;  
+            const request = await axios(url)        
+            const response = await request
+            document.getElementById("likes").textContent = response.data.likes
+        }
+
+        document.getElementById('city_input').addEventListener('submit', city_input)
+        async function city_input(e){
+            e.preventDefault();
+            const form = e.target;
+            const data = new FormData(form);
+            const url = document.getElementById('city_input').dataset.url;
+            const request = await axios({
+                method:'POST',
+                url: url,
+                data: data,
+                });
+            const response = await request;
+            const cities_list = document.getElementById('cities_list');
+            const div = document.createElement('div');
+            div.append(response.data.city)
+            cities_list.append(div);
+            form.reset();
+        }
+
+    </script>
+
+{% endblock %}

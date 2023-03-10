@@ -6,7 +6,7 @@
     <h1>Vanilla</h1>
     <div class="card">
         <h2 class="mb-4">Likes: <span id="likes">0</span></h2>
-        <button id="addlike" data-url="">Click Me</button>
+        <button id="addlikes" data-url="">Click Me</button>
     </div>
     
     <div class="card">
@@ -28,10 +28,9 @@
 
     <script>
 
-        document.getElementById('addlike').addEventListener('click', addlike)
-
-        function addlike() {
-            const url = document.getElementById('addlike').dataset.url;
+        document.getElementById('addlikes').addEventListener('click', addlikes)
+        function addlikes() {
+            const url = document.getElementById('addlikes').dataset.url;
             const xhr = new XMLHttpRequest();
             xhr.open('GET', url, true)
             xhr.send()

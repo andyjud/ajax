@@ -5,14 +5,13 @@
     <h1>Htmx</h1>
     <div class="card">
         <h2 class="mb-4">Likes: <span id="likes">0</span></h2>
-        <button hx-get="{% url 'htmx-data' %}" hx-target="#likes" hx-swap="innerHTML">Click Me</button>
+        <button>Click Me</button>
     </div>
     
     <div class="card">
         <div class="mb-4">
             <h2 class="mb-4">Input a city:</h2>
-            <form hx-post="{% url 'htmx-data' %}" hx-target="#cities_list" hx-swap="beforeend"
-            _="on htmx:afterRequest reset() me">
+            <form>
                 {% csrf_token %}
                 <input type="text" name="city" autocomplete="off">
                 <button type="submit">Submit</button>
@@ -26,5 +25,4 @@
 
 {% block library %}
     <script src="https://unpkg.com/htmx.org@1.5.0"></script>
-    <script src="https://unpkg.com/hyperscript.org@0.9.8"></script>
 {% endblock %}
